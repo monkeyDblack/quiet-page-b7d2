@@ -1,0 +1,1792 @@
+<!doctype html>
+<html lang="zh-CN" class="locked">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#fff8f1" />
+<title>写给你的一页小心事 ♥</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath fill='%23ff7a9c' d='M16 29.2S0 18.1 0 8.8C0 3.9 3.9 0 8.8 0 12.1 0 15 1.9 16 4.6 17 1.9 19.9 0 23.2 0 28.1 0 32 3.9 32 8.8 32 18.1 16 29.2 16 29.2Z'/%3E%3C/svg%3E" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --cream: #fff8f1;
+    --ink: #54423c;
+    --ink-2: #8b736a;
+    --ink-3: #b09a90;
+    --pink: #ff7a9c;
+    --pink-deep: #f4628a;
+    --pink-2: #ffd3de;
+    --peach: #ffd9bd;
+    --mint: #a9ded1;
+    --butter: #ffe7ae;
+    --card: #fffdf9;
+    --shadow: 0 24px 54px -32px rgba(122, 72, 60, 0.55);
+  }
+
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+    line-height: 1.75;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    background:
+      radial-gradient(1100px 720px at 8% -8%, #ffe3ec 0%, rgba(255, 227, 236, 0) 58%),
+      radial-gradient(900px 620px at 102% 2%, #e6f6f0 0%, rgba(230, 246, 240, 0) 55%),
+      radial-gradient(1100px 820px at 50% 112%, #ffe9d5 0%, rgba(255, 233, 213, 0) 60%),
+      var(--cream);
+    background-attachment: fixed;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(rgba(170, 122, 100, 0.10) 1px, transparent 1px);
+    background-size: 18px 18px;
+    opacity: 0.55;
+  }
+
+  ::selection { background: var(--pink-2); color: var(--ink); }
+
+  .bg-blobs { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(46px); opacity: .55; }
+  .blob.b1 { width: 320px; height: 320px; left: -90px; top: 12%; background: #ffd0dd; }
+  .blob.b2 { width: 280px; height: 280px; right: -80px; top: 34%; background: #d5f0e7; }
+  .blob.b3 { width: 360px; height: 360px; left: 30%; bottom: -140px; background: #ffe2c4; }
+
+  .fly-layer { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+  .fly { position: absolute; will-change: transform, opacity; }
+
+  main { position: relative; z-index: 1; }
+
+  button { touch-action: manipulation; }
+
+  /* ---------------- hero ---------------- */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(34px, 8vw, 88px) 18px clamp(30px, 7vw, 60px);
+    gap: clamp(8px, 1.4vw, 14px);
+  }
+
+  .stamp {
+    display: inline-block;
+    padding: 7px 16px;
+    border: 1.6px dashed rgba(255, 122, 156, .65);
+    border-radius: 999px;
+    color: #d9607f;
+    font-size: clamp(11px, 2.6vw, 13px);
+    letter-spacing: .14em;
+    background: rgba(255, 255, 255, .6);
+    transform: rotate(-3deg);
+    cursor: pointer;
+    user-select: none;
+    transition: transform .3s ease;
+  }
+  .stamp:active { transform: rotate(0deg) scale(.97); }
+
+  h1 {
+    margin: 4px 0 0;
+    font-size: clamp(29px, 7.2vw, 56px);
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: .5px;
+  }
+
+  .hl {
+    background-image: linear-gradient(180deg, transparent 60%, #ffdbe5 60%, #ffdbe5 93%, transparent 93%);
+    padding: 0 .06em;
+  }
+
+  .lead {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: clamp(13.5px, 3.6vw, 17px);
+    letter-spacing: .04em;
+  }
+
+  .duo {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: clamp(0px, 1.2vw, 12px);
+    margin: clamp(4px, 1.4vw, 14px) 0 2px;
+    padding: 0 4px;
+  }
+
+  .char {
+    width: clamp(114px, 28vw, 172px);
+    transition: transform .7s cubic-bezier(.3, 1.4, .5, 1);
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+  }
+  .char svg { display: block; width: 100%; height: auto; overflow: visible; pointer-events: none; filter: drop-shadow(0 12px 18px rgba(190, 140, 120, .18)); }
+  .ch-bear { transform: translateX(-3px); }
+  .ch-bunny { transform: translateX(3px); }
+  .duo.hugged .ch-bear { transform: translateX(25px) rotate(-4deg); }
+  .duo.hugged .ch-bunny { transform: translateX(-25px) rotate(4deg); }
+  .char.boop { animation: boop .42s cubic-bezier(.3, 1.6, .5, 1); }
+  @keyframes boop {
+    0% { transform: translateY(0) scale(1); }
+    35% { transform: translateY(-6px) scale(1.06, .94); }
+    70% { transform: translateY(0) scale(.97, 1.03); }
+    100% { transform: translateY(0) scale(1); }
+  }
+
+  .bob { animation: bob 3.6s ease-in-out infinite; transform-origin: 50% 95%; }
+  .bob-slow { animation: bob 3.6s ease-in-out infinite .45s; transform-origin: 50% 95%; }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-7px) rotate(-1.2deg); }
+  }
+
+  .blink { animation: blink 5.2s infinite; transform-origin: 50% 50%; }
+  @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.12); } }
+
+  .duo-heart {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: clamp(24px, 5.6vw, 34px);
+    transform: translate(-50%, -50%);
+    color: var(--pink);
+    animation: pulse 2.2s ease-in-out infinite;
+    pointer-events: none;
+    filter: drop-shadow(0 6px 10px rgba(255, 122, 156, .35));
+  }
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: .85; }
+    50% { transform: translate(-50%, -58%) scale(1.14); opacity: 1; }
+  }
+  .duo.hugged .duo-heart { animation-duration: .7s; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 2px; }
+
+  .btn {
+    appearance: none;
+    border: 0;
+    font: inherit;
+    font-weight: 700;
+    font-size: clamp(14px, 3.5vw, 16px);
+    letter-spacing: .04em;
+    padding: 13px 28px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+  }
+  .btn:active { transform: scale(.955); }
+
+  .btn-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #ff8fae, #ff6f95);
+    box-shadow: 0 14px 28px -14px rgba(255, 111, 149, .8), inset 0 1px 0 rgba(255,255,255,.45);
+  }
+
+  .btn-ghost {
+    color: #c2557a;
+    background: rgba(255, 255, 255, .8);
+    box-shadow: inset 0 0 0 1.6px rgba(255, 146, 176, .55), 0 12px 24px -18px rgba(180, 100, 120, .8);
+  }
+
+  .bubble {
+    min-height: 2.6em;
+    margin: 8px 0 0;
+    font-size: clamp(13.5px, 3.6vw, 16.5px);
+    color: #c2557a;
+    font-weight: 600;
+    letter-spacing: .02em;
+    opacity: 0;
+    transform: translateY(6px) scale(.96);
+    transition: opacity .35s ease, transform .35s cubic-bezier(.2, 1.6, .4, 1);
+    max-width: 26em;
+  }
+  .bubble.show { opacity: 1; transform: none; }
+
+  .scroll-hint {
+    margin-top: clamp(8px, 2.2vw, 22px);
+    font-size: 12.5px;
+    letter-spacing: .18em;
+    color: var(--ink-3);
+    animation: nudge 2.4s ease-in-out infinite;
+  }
+  @keyframes nudge {
+    0%, 100% { transform: translateY(0); opacity: .7; }
+    50% { transform: translateY(5px); opacity: 1; }
+  }
+
+  /* ---------------- sections ---------------- */
+  section.block {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: clamp(46px, 9vw, 92px) 18px;
+  }
+
+  .eyebrow {
+    display: block;
+    text-align: center;
+    font-size: 11.5px;
+    letter-spacing: .3em;
+    color: #d38a9d;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    margin: 0 0 8px;
+    text-align: center;
+    font-size: clamp(22px, 5.4vw, 34px);
+    font-weight: 800;
+    letter-spacing: .02em;
+  }
+
+  .section-sub {
+    margin: 0 auto clamp(24px, 5vw, 42px);
+    text-align: center;
+    color: var(--ink-2);
+    font-size: clamp(13px, 3.4vw, 15.5px);
+    max-width: min(30em, 100%);
+    padding: 0 4px;
+  }
+
+  /* cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: clamp(14px, 3vw, 24px);
+  }
+
+  .card {
+    position: relative;
+    background: var(--card);
+    border-radius: 22px;
+    padding: 30px 22px 24px;
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(214, 168, 140, .22);
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform .35s cubic-bezier(.2, .9, .3, 1), box-shadow .35s ease;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    width: 66px;
+    height: 18px;
+    border-radius: 3px;
+    background: rgba(255, 214, 184, .78);
+    transform: translateX(-50%) rotate(-2.5deg);
+    box-shadow: 0 2px 8px rgba(150, 100, 80, .12);
+  }
+
+  .card .icon {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(160deg, #fff4ea, #ffeadf);
+    margin-bottom: 14px;
+  }
+  .card .icon svg { width: 38px; height: 38px; display: block; }
+
+  .card h3 { margin: 0 0 6px; font-size: 17px; letter-spacing: .03em; }
+  .card p { margin: 0; color: var(--ink-2); font-size: 14.5px; line-height: 1.85; }
+
+  /* counter */
+  .counter-section { text-align: center; }
+
+  .counter-card {
+    display: inline-block;
+    padding: clamp(22px, 5vw, 38px) clamp(24px, 6vw, 54px);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, .72);
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(255, 255, 255, .9);
+  }
+
+  .count-num {
+    font-size: clamp(42px, 12vw, 74px);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    padding: .04em .1em .02em;
+    background: linear-gradient(160deg, #ff8fae, #ff5f8c 60%, #ffa26f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-variant-numeric: tabular-nums;
+    transition: transform .25s cubic-bezier(.2, 1.8, .4, 1);
+    display: inline-block;
+  }
+  .count-num.pop { transform: scale(1.12); }
+
+  .count-label {
+    margin-top: 12px;
+    font-size: clamp(13.5px, 3.6vw, 16px);
+    color: var(--ink-2);
+    letter-spacing: .03em;
+  }
+
+  .visit-line { margin-top: 16px; font-size: 12.5px; color: var(--ink-3); letter-spacing: .04em; }
+
+  /* ---------------- games ---------------- */
+  section.play { max-width: 760px; }
+
+  .game-card {
+    background: rgba(255, 255, 255, .8);
+    border-radius: 26px;
+    padding: clamp(16px, 3vw, 22px);
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(255, 255, 255, .9);
+    margin-bottom: 22px;
+  }
+
+  .game-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 4px 12px;
+  }
+  .game-head strong { font-size: 15.5px; letter-spacing: .03em; }
+  .game-head .hint { display: block; font-size: 12px; color: var(--ink-3); font-weight: 400; margin-top: 2px; }
+  .game-score { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+  .game-score b { font-size: 20px; color: var(--pink-deep); font-variant-numeric: tabular-nums; }
+
+  .game-stage {
+    position: relative;
+    height: clamp(290px, 62vw, 360px);
+    border-radius: 20px;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 80% at 50% 0%, #fff4f7 0%, #fff9f2 55%, #ffeede 100%);
+    box-shadow: inset 0 0 0 1px rgba(255, 190, 205, .5), inset 0 12px 30px -20px rgba(180, 110, 110, .5);
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .falling {
+    position: absolute;
+    top: 0;
+    will-change: transform;
+    cursor: pointer;
+  }
+  .falling svg { display: block; filter: drop-shadow(0 6px 8px rgba(255, 120, 150, .28)); }
+
+  .game-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 250, 245, .82);
+    backdrop-filter: blur(3px);
+    transition: opacity .35s ease, visibility .35s;
+  }
+  .game-overlay p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.8; }
+  .game-overlay .big-score { font-size: 34px; font-weight: 800; color: var(--pink-deep); line-height: 1.2; }
+  .game-overlay.hide { opacity: 0; visibility: hidden; }
+
+  .game-timer {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 10px;
+    height: 5px;
+    border-radius: 99px;
+    background: rgba(255, 210, 220, .6);
+    overflow: hidden;
+  }
+  .game-timer i {
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #ffb0c4, #ff7a9c);
+    transition: width .12s linear;
+  }
+
+  .game-result { margin: 12px 4px 2px; font-size: 13.5px; color: var(--ink-2); text-align: center; min-height: 1.6em; }
+
+  /* fortune */
+  .fortune { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 18px; }
+
+  .fortune-card {
+    width: min(340px, 100%);
+    height: 190px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .fc-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .8s cubic-bezier(.3, 1.1, .3, 1);
+  }
+  .fortune-card.flipped .fc-inner { transform: rotateY(180deg); }
+
+  .fc-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 20px 24px;
+    text-align: center;
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(214, 168, 140, .3);
+  }
+
+  .fc-front {
+    background:
+      repeating-linear-gradient(45deg, rgba(255, 214, 224, .35) 0 10px, transparent 10px 20px),
+      linear-gradient(160deg, #fff7f9, #fff0e6);
+    color: #c2557a;
+  }
+  .fc-front span { font-size: 22px; font-weight: 800; letter-spacing: .12em; }
+  .fc-front small { font-size: 12px; color: #c9909f; letter-spacing: .1em; }
+
+  .fc-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(160deg, #fffdf8, #fff4ea);
+    justify-content: center;
+  }
+  .fc-label {
+    font-size: 11.5px;
+    letter-spacing: .18em;
+    color: #d98da0;
+    border: 1px solid rgba(255, 160, 185, .6);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .fc-back p { margin: 4px 0 0; font-size: 15.5px; line-height: 1.8; font-weight: 600; }
+
+  /* dodge */
+  .dodge-wrap {
+    position: relative;
+    max-width: 460px;
+    margin: 0 auto 22px;
+    height: 150px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .5);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .9);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+  .dodge {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: left .28s cubic-bezier(.2, 1.3, .4, 1), top .28s cubic-bezier(.2, 1.3, .4, 1);
+    white-space: nowrap;
+  }
+  .dodge.settled { animation: none; }
+  .dodge-tip {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--ink-3);
+    letter-spacing: .06em;
+  }
+
+  /* meter */
+  .meter-card {
+    max-width: 460px;
+    margin: 0 auto 22px;
+    background: rgba(255, 255, 255, .72);
+    border-radius: 22px;
+    padding: 20px 22px 18px;
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(255, 255, 255, .9);
+  }
+  .meter-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 13.5px; color: var(--ink-2); }
+  .meter-head strong { color: var(--pink-deep); font-size: 18px; font-variant-numeric: tabular-nums; }
+  .meter {
+    margin-top: 10px;
+    height: 12px;
+    border-radius: 99px;
+    background: #ffe6ec;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(180, 110, 130, .2);
+  }
+  .meter-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #ffc2d2, #ff7a9c 60%, #ff9d6f);
+    transition: width .6s cubic-bezier(.2, .9, .3, 1);
+  }
+  .meter-tip { margin: 8px 0 0; font-size: 12px; color: var(--ink-3); text-align: center; }
+
+  .secret {
+    display: none;
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px 24px;
+    border-radius: 24px;
+    background: linear-gradient(160deg, #fff8fb, #fff2e6);
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(255, 190, 205, .6);
+  }
+  .secret.in { display: block; animation: fadeUp .8s cubic-bezier(.2, .8, .2, 1); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  .secret p { margin: 6px 0; font-size: 14.5px; color: var(--ink-2); }
+  .secret .big { font-size: clamp(17px, 4.3vw, 21px); font-weight: 800; color: var(--ink); line-height: 1.7; }
+  .secret .small { font-size: 12.5px; color: var(--ink-3); }
+
+  /* statement */
+  .statement { text-align: center; }
+  .statement p {
+    margin: 0 0 .55em;
+    font-size: clamp(19px, 5vw, 33px);
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: .01em;
+  }
+  .statement p:last-child { margin-bottom: 0; }
+  .statement .soft { color: var(--ink-2); font-weight: 500; font-size: clamp(14.5px, 3.8vw, 19px); line-height: 1.9; }
+  .statement .mark { background-image: linear-gradient(180deg, transparent 62%, #ffe1b8 62%, #ffe1b8 94%, transparent 94%); }
+
+  /* letter */
+  .paper {
+    max-width: 660px;
+    margin: 0 auto;
+    position: relative;
+    background: #fffdf7;
+    border-radius: 24px;
+    padding: clamp(28px, 6vw, 50px) clamp(22px, 5.5vw, 48px);
+    box-shadow: 0 34px 70px -40px rgba(122, 72, 60, .6), inset 0 0 0 1px rgba(214, 168, 140, .3);
+    transform: rotate(-.35deg);
+  }
+  .paper::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px dashed rgba(214, 168, 140, .5);
+    border-radius: 16px;
+    pointer-events: none;
+  }
+
+  .paper p {
+    margin: 0 0 1.05em;
+    font-size: clamp(14.5px, 3.7vw, 16.5px);
+    line-height: 2.05;
+    letter-spacing: .015em;
+  }
+  .paper p:last-child { margin-bottom: 0; }
+  .paper .greet { font-weight: 700; }
+  .paper .strong { font-weight: 800; font-size: clamp(16px, 4.2vw, 19px); }
+  .paper .quiet { color: var(--ink-2); }
+  .paper .sign { text-align: right; margin-top: 1.6em; color: #a8625f; font-weight: 600; }
+  .paper .ps {
+    margin-top: 1.6em;
+    padding-top: 1em;
+    border-top: 1px dashed rgba(214, 168, 140, .6);
+    color: var(--ink-2);
+    font-size: clamp(12.5px, 3.4vw, 14.5px);
+    line-height: 1.95;
+  }
+
+  /* ending */
+  .ending { text-align: center; }
+  .ending h2 { margin-bottom: 6px; }
+  .ending .sub { color: var(--ink-2); font-size: clamp(13.5px, 3.5vw, 16px); margin: 0 0 24px; }
+
+  .btn-big { padding: 16px 40px; font-size: clamp(15px, 4vw, 18px); }
+
+  .reply {
+    margin-top: 20px;
+    font-size: clamp(15px, 4.2vw, 20px);
+    font-weight: 700;
+    color: #c2557a;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .5s ease, transform .6s cubic-bezier(.2, 1.5, .4, 1);
+  }
+  .reply.in { opacity: 1; transform: none; }
+
+  footer {
+    text-align: center;
+    padding: 20px 24px clamp(34px, 8vw, 60px);
+    color: var(--ink-3);
+    font-size: 12px;
+    line-height: 2;
+    letter-spacing: .05em;
+  }
+  footer .dot { opacity: .5; margin: 0 8px; }
+
+  /* toast */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translate(-50%, 20px);
+    z-index: 80;
+    background: rgba(86, 62, 56, .92);
+    color: #fff6f2;
+    font-size: 13px;
+    padding: 11px 18px;
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .35s ease, transform .45s cubic-bezier(.2, 1.4, .4, 1);
+    box-shadow: 0 16px 30px -14px rgba(60, 30, 30, .6);
+    max-width: 86vw;
+    text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  .gain {
+    position: fixed;
+    z-index: 70;
+    font-weight: 800;
+    font-size: 15px;
+    color: #ff5f8c;
+    pointer-events: none;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, .8);
+  }
+
+  /* dev 留言（只有 ?dev=1 才出现） */
+  .devui { position: fixed; right: 14px; bottom: 16px; z-index: 90; }
+  .devui[hidden] { display: none; }
+  .dev-fab {
+    width: 46px; height: 46px; padding: 0; border-radius: 50%;
+    border: 1.5px solid #ffd9e2; background: #fff; color: #e05a80;
+    font-size: 18px; line-height: 1; cursor: pointer;
+    box-shadow: 0 10px 22px -8px rgba(200, 120, 140, .5);
+  }
+  .dev-fab:active { transform: scale(.94); }
+  .dev-panel {
+    position: absolute; right: 0; bottom: 56px;
+    width: min(300px, calc(100vw - 28px));
+    background: #fff; border: 1.5px solid #ffe0e7; border-radius: 18px;
+    padding: 14px; text-align: left;
+    box-shadow: 0 20px 46px -18px rgba(180, 110, 130, .55);
+  }
+  .dev-panel[hidden] { display: none; }
+  .dev-title { margin: 0 0 8px; font-size: 13.5px; font-weight: 700; color: #4a373b; }
+  .dev-panel textarea {
+    width: 100%; box-sizing: border-box; min-height: 84px; resize: vertical;
+    border: 1.5px solid #ffe0e7; border-radius: 12px; background: #fffcfa;
+    padding: 9px 10px; font: inherit; font-size: 13.5px; line-height: 1.6;
+    color: #4a373b; outline: none;
+  }
+  .dev-panel textarea:focus { border-color: #ff9db4; }
+  .dev-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .dev-actions .btn { flex: 1; padding: 9px 10px; font-size: 13px; box-shadow: none; }
+  .dev-hint { margin: 8px 0 0; font-size: 11.5px; color: #b9a6a4; line-height: 1.5; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s ease, transform .9s cubic-bezier(.2, .8, .2, 1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 420px) {
+    .card { padding: 26px 20px 22px; }
+    .btn { padding: 12px 24px; }
+    .game-card { padding: 14px; border-radius: 22px; }
+  }
+
+  /* ---------------- us ---------------- */
+  .us-main { margin: 0 0 clamp(18px, 4vw, 26px); position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 26px 60px -34px rgba(122, 72, 60, .75); }
+  .us-main img { display: block; width: 100%; height: auto; }
+  .us-main::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(84, 66, 60, 0) 42%, rgba(84, 66, 60, .55) 100%); pointer-events: none; }
+  .us-main figcaption { position: absolute; left: 0; right: 0; bottom: 13px; padding: 0 18px; color: #fff; font-size: 13.5px; letter-spacing: .02em; text-shadow: 0 2px 10px rgba(0, 0, 0, .5); z-index: 1; }
+  .us-strip { display: flex; gap: 12px; overflow-x: auto; padding: 6px 2px 16px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .us-strip::-webkit-scrollbar { display: none; }
+  .us-card { flex: 0 0 64%; max-width: 260px; margin: 0; scroll-snap-align: center; background: var(--card); border-radius: 18px; overflow: hidden; box-shadow: 0 18px 40px -30px rgba(122, 72, 60, .85); }
+  .us-card img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  .us-card figcaption { padding: 9px 11px 11px; font-size: 12.5px; line-height: 1.55; color: var(--ink-2); }
+  .us-hint { margin: 0; text-align: center; font-size: 11.5px; letter-spacing: .16em; color: var(--ink-3); }
+  @media (max-width: 420px) { .us-card { flex-basis: 72%; } .us-main figcaption { font-size: 13px; } }
+
+
+/* ---- 照片流：自然比例，融进版面 ---- */
+.us-band{position:relative;margin:0 0 -8px;line-height:0;overflow:hidden}
+.us-band img{width:100%;height:auto;display:block;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 86%,transparent 100%)}
+.us-band-txt{position:absolute;left:20px;right:20px;bottom:26px;line-height:1.6;
+  font-size:13px;letter-spacing:.06em;color:#fff;text-shadow:0 1px 10px rgba(60,30,20,.55)}
+.us-flow{column-count:2;column-gap:10px;margin-top:22px}
+.us-p{break-inside:avoid;margin:0 0 10px;background:#fffdfa;padding:5px 5px 0;
+  border-radius:9px;box-shadow:0 8px 18px rgba(120,80,60,.13);transform:rotate(-1.15deg)}
+.us-p:nth-child(even){transform:rotate(1.15deg)}
+.us-p img{display:block;width:100%;border-radius:5px}
+.us-p figcaption{padding:7px 4px 8px;text-align:center;font-size:11px;line-height:1.5;color:#9a8478}
+.us-p.wide{column-span:all;transform:none;margin:0 0 12px;padding:5px 5px 0}
+.us-p.wide figcaption{font-size:11.5px}
+@media (max-width:360px){.us-flow{column-gap:8px}.us-p figcaption{font-size:10.5px}}
+</style>
+<style>
+  /* ===== 口令门 ===== */
+  html.locked, html.locked body { overflow: hidden; }
+  #gate {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(120% 90% at 50% 0%, #ffe6ee 0%, #fff8f1 55%, #ffeede 100%);
+    transition: opacity .45s ease;
+  }
+  #gate.hide { opacity: 0; pointer-events: none; }
+  .gate-card {
+    width: 100%; max-width: 340px; text-align: center;
+    background: #fffdf9; border: 1px solid rgba(255,180,200,.35);
+    border-radius: 26px; padding: 30px 26px 24px;
+    box-shadow: 0 30px 60px -34px rgba(122,72,60,.55);
+  }
+  .gate-emoji { font-size: 34px; line-height: 1; }
+  .gate-title { margin: 10px 0 6px; font-size: 20px; letter-spacing: .05em; color: var(--ink); }
+  .gate-sub { margin: 0 0 18px; font-size: 13px; color: var(--ink-3); }
+  #gate-input {
+    width: 100%; padding: 13px 16px; border-radius: 14px;
+    border: 1px solid #f3d6dd; background: #fff8f1;
+    font-size: 16px; color: var(--ink); text-align: center;
+    letter-spacing: .22em; outline: none;
+  }
+  #gate-input:focus { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(255,122,156,.14); }
+  #gate-btn {
+    margin-top: 14px; width: 100%; padding: 13px 0; border: 0; border-radius: 999px;
+    background: linear-gradient(120deg, var(--pink), #ff9db6);
+    color: #fff; font-size: 16px; letter-spacing: .18em; cursor: pointer;
+    box-shadow: 0 14px 26px -14px rgba(244,98,138,.8);
+  }
+  #gate-btn:active { transform: translateY(1px); }
+  .gate-msg { margin: 12px 0 0; font-size: 12.5px; min-height: 1.2em; color: var(--pink-deep); }
+  .gate-msg.ok { color: #4aa88f; }
+  .gate-card.shake { animation: gateShake .4s; }
+  @keyframes gateShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 口令门 ===== -->
+<div id="gate" role="dialog" aria-modal="true" aria-label="入口">
+  <div class="gate-card">
+    <div class="gate-emoji">🔒</div>
+    <h1 class="gate-title">先对个暗号</h1>
+    <p class="gate-sub">这一页只写给一个人，答对了才开。</p>
+    <input id="gate-input" type="password" autocomplete="off" placeholder="输入口令" aria-label="口令" />
+    <button id="gate-btn" type="button">开 门</button>
+    <p id="gate-msg" class="gate-msg"></p>
+  </div>
+</div>
+<!-- ===== /口令门 ===== -->
+
+
+<div class="bg-blobs" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<div class="fly-layer" id="flyLayer" aria-hidden="true"></div>
+
+<main>
+  <!-- ============ hero ============ -->
+  <header class="hero">
+    <div class="stamp" id="stamp">想你 · 长期有效</div>
+
+    <h1>写给你的一页<br />小<span class="hl">心事</span></h1>
+    <p class="lead">点开它的这一刻，我大概又在想你了。</p>
+
+    <div class="duo" id="duo" aria-label="左边的我，右边的你">
+      <div class="char ch-bear" id="bear" role="button" tabindex="0" aria-label="摸摸小熊的头">
+        <svg class="bob" viewBox="0 0 160 178">
+          <circle cx="40" cy="42" r="20" fill="#c58a5c"/>
+          <circle cx="40" cy="42" r="10.5" fill="#e8b98f"/>
+          <circle cx="120" cy="42" r="20" fill="#c58a5c"/>
+          <circle cx="120" cy="42" r="10.5" fill="#e8b98f"/>
+          <circle cx="80" cy="84" r="52" fill="#d79a6a"/>
+          <ellipse cx="80" cy="102" rx="27" ry="20" fill="#f4d8b8"/>
+          <ellipse cx="80" cy="94" rx="7.5" ry="5.5" fill="#6b4a38"/>
+          <path d="M80 99.5 q0 8 -8.5 9" fill="none" stroke="#6b4a38" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M80 99.5 q0 8 8.5 9" fill="none" stroke="#6b4a38" stroke-width="2.6" stroke-linecap="round"/>
+          <g class="blink">
+            <path d="M56 79 q8 -8 16 0" fill="none" stroke="#4a342c" stroke-width="3.4" stroke-linecap="round"/>
+            <path d="M88 79 q8 -8 16 0" fill="none" stroke="#4a342c" stroke-width="3.4" stroke-linecap="round"/>
+          </g>
+          <ellipse cx="50" cy="96" rx="9" ry="6" fill="#f79aa8" opacity=".5"/>
+          <ellipse cx="110" cy="96" rx="9" ry="6" fill="#f79aa8" opacity=".5"/>
+          <rect x="34" y="126" width="92" height="48" rx="24" fill="#d79a6a"/>
+          <ellipse cx="80" cy="152" rx="24" ry="16" fill="#f4d8b8"/>
+          <circle cx="34" cy="142" r="11" fill="#c58a5c"/>
+          <circle cx="126" cy="142" r="11" fill="#c58a5c"/>
+        </svg>
+      </div>
+
+      <div class="duo-heart" aria-hidden="true">
+        <svg viewBox="0 0 32 29" width="100%"><path fill="currentColor" d="M16 29.2S0 18.1 0 8.8C0 3.9 3.9 0 8.8 0 12.1 0 15 1.9 16 4.6 17 1.9 19.9 0 23.2 0 28.1 0 32 3.9 32 8.8 32 18.1 16 29.2 16 29.2Z"/></svg>
+      </div>
+
+      <div class="char ch-bunny" id="bunny" role="button" tabindex="0" aria-label="摸摸兔子的头">
+        <svg class="bob-slow" viewBox="0 0 160 178">
+          <g transform="rotate(-9 66 30)">
+            <rect x="58" y="6" width="17" height="46" rx="8.5" fill="#fff7f3" stroke="#edd8cd" stroke-width="2"/>
+            <rect x="62" y="12" width="9" height="32" rx="4.5" fill="#ffd3de"/>
+          </g>
+          <g transform="rotate(9 96 30)">
+            <rect x="87" y="6" width="17" height="46" rx="8.5" fill="#fff7f3" stroke="#edd8cd" stroke-width="2"/>
+            <rect x="91" y="12" width="9" height="32" rx="4.5" fill="#ffd3de"/>
+          </g>
+          <ellipse cx="80" cy="88" rx="49" ry="45" fill="#fffaf7" stroke="#edd8cd" stroke-width="2"/>
+          <g class="blink">
+            <path d="M55 85 q8 -8 16 0" fill="none" stroke="#5b463e" stroke-width="3.4" stroke-linecap="round"/>
+            <path d="M89 85 q8 -8 16 0" fill="none" stroke="#5b463e" stroke-width="3.4" stroke-linecap="round"/>
+          </g>
+          <ellipse cx="80" cy="97" rx="4.6" ry="3.6" fill="#ff9fb2"/>
+          <path d="M80 100.5 q-6 8 -11 3.5" fill="none" stroke="#8a6a60" stroke-width="2.3" stroke-linecap="round"/>
+          <path d="M80 100.5 q6 8 11 3.5" fill="none" stroke="#8a6a60" stroke-width="2.3" stroke-linecap="round"/>
+          <ellipse cx="50" cy="99" rx="9.5" ry="6" fill="#ffb3c1" opacity=".75"/>
+          <ellipse cx="110" cy="99" rx="9.5" ry="6" fill="#ffb3c1" opacity=".75"/>
+          <rect x="38" y="127" width="84" height="47" rx="23.5" fill="#fffaf7" stroke="#edd8cd" stroke-width="2"/>
+          <circle cx="38" cy="143" r="11" fill="#fff2ec" stroke="#edd8cd" stroke-width="2"/>
+          <circle cx="122" cy="143" r="11" fill="#fff2ec" stroke="#edd8cd" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="poke" type="button">戳我一下</button>
+      <button class="btn btn-ghost" id="hug" type="button">要抱抱</button>
+    </div>
+
+    <p class="bubble" id="bubble" aria-live="polite"></p>
+    <div class="scroll-hint">往下看 ↓</div>
+  </header>
+
+  <!-- ============ cards ============ -->
+  <section class="block">
+    <span class="eyebrow reveal">MISS YOU</span>
+    <h2 class="reveal">想念的形状</h2>
+    <p class="section-sub reveal">如果想念有形状，大概是这些很小的、很傻的事。</p>
+
+    <div class="cards">
+      <article class="card reveal" style="--tilt:-1.2deg">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <rect x="12" y="5" width="24" height="38" rx="7" fill="#fff3ec" stroke="#e0a184" stroke-width="2.4"/>
+            <path d="M20 10h8" stroke="#e0a184" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M24 31c-4.8-3.5-7.3-6.2-7.3-9.3a3.7 3.7 0 0 1 7.3-1.4 3.7 3.7 0 0 1 7.3 1.4c0 3.1-2.5 5.8-7.3 9.3Z" fill="#ff9fb4"/>
+          </svg>
+        </div>
+        <h3>手机亮了又暗</h3>
+        <p>每一次亮起来，我都以为是你。<br />然后发现不是，就再等下一次。</p>
+      </article>
+
+      <article class="card reveal" style="--tilt:1deg">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <path d="M14 17 12 7l9 5.5" fill="#fff3ec" stroke="#e0a184" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M34 17 36 7l-9 5.5" fill="#fff3ec" stroke="#e0a184" stroke-width="2.4" stroke-linejoin="round"/>
+            <circle cx="24" cy="27" r="13" fill="#fff3ec" stroke="#e0a184" stroke-width="2.4"/>
+            <path d="M19 26h.01M29 26h.01" stroke="#7a5a4c" stroke-width="3.4" stroke-linecap="round"/>
+            <path d="M24 29.5v2.2M21 34.5c1.7 1.5 4.3 1.5 6 0" fill="none" stroke="#7a5a4c" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>路过的猫都像你</h3>
+        <p>今天已经认错三次了。<br />明明它们都没有你可爱。</p>
+      </article>
+
+      <article class="card reveal" style="--tilt:-0.7deg">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <path d="M30 8a16 16 0 1 0 10.5 26.5A17 17 0 0 1 30 8Z" fill="#ffe7ae" stroke="#e0a184" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M37 12h.01M41 18h.01M34 20h.01" stroke="#e0a184" stroke-width="3.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>晚安要说三遍</h3>
+        <p>第一遍是晚安，第二遍是补的，<br />第三遍是舍不得。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ counter ============ -->
+  <section class="block counter-section">
+    <span class="eyebrow reveal">REALTIME</span>
+    <h2 class="reveal">刚刚，又想你了</h2>
+    <p class="section-sub reveal">这个数字一直在长，没人按着它。</p>
+
+    <div class="counter-card reveal">
+      <div class="count-num" id="count">0</div>
+      <div class="count-label">从你打开这一页到现在，我想了你 <span id="countInline">0</span> 次</div>
+      <div class="visit-line" id="visitLine">第一次打开它呀，那我得表现好一点。</div>
+    </div>
+  </section>
+
+  <!-- ============ games ============ -->
+  <section class="block play" id="play">
+    <span class="eyebrow reveal">PLAY WITH ME</span>
+    <h2 class="reveal">陪我玩一会儿</h2>
+    <p class="section-sub reveal">赢不赢不重要，反正奖励都是我。</p>
+
+    <div class="game-card reveal">
+      <div class="game-head">
+        <div>
+          <strong>接住我的想你</strong>
+          <span class="hint">20 秒，点掉落下来的心</span>
+        </div>
+        <div class="game-score">接住 <b id="score">0</b> 颗</div>
+      </div>
+
+      <div class="game-stage" id="stage">
+        <div class="game-timer"><i id="timerBar"></i></div>
+        <div class="game-overlay" id="gameOverlay">
+          <p>心掉下来的时候，点它一下。<br />掉到地上也没关系，我再想一次就好了。</p>
+          <button class="btn btn-primary" id="startGame" type="button">开始</button>
+        </div>
+      </div>
+
+      <p class="game-result" id="gameResult"></p>
+    </div>
+
+    <div class="fortune reveal">
+      <div class="fortune-card" id="fortuneCard" role="button" tabindex="0" aria-label="抽一张想你签">
+        <div class="fc-inner">
+          <div class="fc-face fc-front">
+            <span>想你签</span>
+            <small>点我抽一张</small>
+          </div>
+          <div class="fc-face fc-back">
+            <span class="fc-label" id="fcLabel">上上签</span>
+            <p id="fcText">今天适合被抱很久。</p>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-ghost" id="drawBtn" type="button">再抽一张</button>
+    </div>
+
+    <div class="dodge-wrap reveal" id="dodgeWrap">
+      <button class="btn btn-ghost dodge" id="dodgeBtn" type="button">再陪我一会儿</button>
+      <p class="dodge-tip" id="dodgeTip">（这个按钮有点害羞）</p>
+    </div>
+  </section>
+
+  <!-- ============ meter + secret ============ -->
+  <section class="block" id="points">
+    <div class="meter-card reveal">
+      <div class="meter-head">
+        <span>我们的互动值</span>
+        <strong id="pct">0%</strong>
+      </div>
+      <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+      <p class="meter-tip" id="meterTip">点点上面的东西，它就会长。</p>
+    </div>
+
+    <div class="secret" id="secret">
+      <span class="eyebrow">UNLOCKED</span>
+      <p>恭喜你，把这一页玩完了。</p>
+      <p class="big">奖励是一句话：<br />以后每一个无聊的下午，<br />我都想和你一起浪费。</p>
+      <p class="small">—— 说好了，不许嫌我烦。</p>
+    </div>
+  </section>
+
+  <!-- ============ statement ============ -->
+  <section class="block statement">
+    <p class="reveal soft">我原以为自己挺厉害的。</p>
+    <p class="reveal soft">一个人吃饭、一个人走夜路、一个人把周末过完，好像都能应付。</p>
+    <p class="reveal">后来才发现，我不是厉害，<br />我只是<span class="mark">习惯了你在</span>。</p>
+  </section>
+
+  <!-- ============ letter ============ -->
+  <section class="block">
+    <span class="eyebrow reveal">A LITTLE LETTER</span>
+    <h2 class="reveal">一封信，只给你看</h2>
+    <p class="section-sub reveal">有些话当面说会结巴，写下来就不会了。</p>
+
+    <div class="paper reveal">
+      <p class="greet">亲爱的<span data-her>宝贝</span>：</p>
+
+      <p>写这一页的时候，我把同一句话删了又改，改了又删。<br />最后决定不修饰了，就老老实实说——</p>
+
+      <p class="strong">我很想你。</p>
+
+      <p>不是“偶尔想起来”的那种想。<br />
+      是吃到好吃的，第一反应是“她会不会喜欢”；<br />
+      是看到好看的晚霞，会想“要是她在旁边就好了”；<br />
+      是晚上躺下来，脑子里还在跟你讲今天发生的事，讲到一半才想起来你不在。</p>
+
+      <p>我原以为自己一个人也行。<br />
+      一个人吃饭、一个人走夜路、一个人把周末过完，好像都没问题。<br />
+      可你在的时候我才明白，那不叫“行”，那叫“凑合”。</p>
+
+      <p>所以有件事我想说得清楚一点：<br />
+      <span class="strong">我不是需要有人陪，我是需要你陪。</span><br />
+      我也离不开你的陪伴。</p>
+
+      <p class="quiet">你不在的日子，我把想念过得很认真。<br />它不吵不闹，就是一直在。</p>
+
+      <p class="sign">—— 离不开你的那个人</p>
+
+      <p class="ps">P.S. 你要是心情不好，就回来骂我两句。我保证不还嘴，还顺便给你买好吃的。</p>
+    </div>
+  </section>
+
+
+  <!-- ============ us ============ -->
+  <section class="us-band">
+    <img src="photos/p01.jpg" alt="我们在山顶" loading="lazy" />
+    <div class="us-band-txt">山顶的风很大，你偏要拍完再走</div>
+  </section>
+
+  <section class="block" id="us">
+    <span class="eyebrow">OUR DAYS</span>
+    <h2 class="">我们的样子</h2>
+    <p class="section-sub">不是摆拍，全是随手拍的。</p>
+
+    <div class="us-flow">
+    <figure class="us-p"><img src="photos/p02.jpg" alt="一起吃饭" loading="lazy" /><figcaption>热气一上来，眼镜就糊了，我们谁也没擦。</figcaption></figure>
+    <figure class="us-p"><img src="photos/p03.jpg" alt="上课的时候" loading="lazy" /><figcaption>你在旁边坐着，那节课我听得格外认真。</figcaption></figure>
+    <figure class="us-p"><img src="photos/p05.jpg" alt="有太阳的日子" loading="lazy" /></figure>
+    <figure class="us-p"><img src="photos/p06.jpg" alt="夜里回家" loading="lazy" /><figcaption>风从领口灌进来，你在后面笑，我就骑慢了点。</figcaption></figure>
+    <figure class="us-p wide"><img src="photos/p07.jpg" alt="在车上" loading="lazy" /></figure>
+    <figure class="us-p"><img src="photos/p10.jpg" alt="冬天" loading="lazy" /></figure>
+    <figure class="us-p"><img src="photos/p11.jpg" alt="挤在一起" loading="lazy" /></figure>
+    <figure class="us-p wide"><img src="photos/p12.jpg" alt="散步到很晚" loading="lazy" /><figcaption>谁都没提回去，就这么坐着，坐到路灯都暗了。</figcaption></figure>
+    <figure class="us-p wide"><img src="photos/p09.jpg" alt="海边" loading="lazy" /><figcaption>风太大，你说的话我得凑近了才听得清。</figcaption></figure>
+  </div>
+  </section>
+
+  <!-- ============ ending ============ -->
+  <section class="block ending">
+    <h2 class="reveal">所以，能不能一直陪着我？</h2>
+    <p class="sub reveal">我会很乖，也会努力变成更好的人。</p>
+    <button class="btn btn-primary btn-big reveal" id="promise" type="button">我答应你</button>
+    <p class="reply" id="reply">那说好了，不许反悔 ♥</p>
+  </section>
+
+  <footer>
+    这一页没有服务器，也没有别人，只有我。
+    <br />
+    想我的时候，就打开它一次。 <span class="dot">·</span> <span id="year">2026</span>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<div class="devui" id="devui" hidden>
+  <button class="dev-fab" id="devFab" type="button" aria-label="留言">✎</button>
+  <div class="dev-panel" id="devPanel" hidden>
+    <p class="dev-title">哪里想改？直接写给我</p>
+    <textarea id="devText" maxlength="800" placeholder="例：第三张卡片字太小 / 想加一首歌 / 换个称呼"></textarea>
+    <div class="dev-actions">
+      <button class="btn btn-primary" id="devSend" type="button">发送</button>
+      <button class="btn btn-ghost" id="devClose" type="button">收起</button>
+    </div>
+    <p class="dev-hint" id="devHint">只有加 ?dev=1 才会出现这个按钮。</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============ 只需要改这里 ============ */
+  var CONFIG = {
+    her: "宝贝"        // 她的名字 / 昵称，会出现在信的开头
+  };
+  /* ====================================== */
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll("[data-her]").forEach(function (el) {
+    el.textContent = CONFIG.her;
+  });
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ---------------- 飘心 ---------------- */
+  var layer = document.getElementById("flyLayer");
+  var HEART = "M16 29.2S0 18.1 0 8.8C0 3.9 3.9 0 8.8 0 12.1 0 15 1.9 16 4.6 17 1.9 19.9 0 23.2 0 28.1 0 32 3.9 32 8.8 32 18.1 16 29.2 16 29.2Z";
+  var COLORS = ["#ff7a9c", "#ff9fb2", "#ffb37a", "#f7a8c4", "#ffcf8a", "#9fd8c8", "#c9a7f0"];
+
+  function heartSVG(size, color, cls) {
+    return '<svg viewBox="0 0 32 29" width="' + size + '" height="' + size + '"' +
+      (cls ? ' class="' + cls + '"' : "") + ' style="display:block">' +
+      '<path fill="' + color + '" d="' + HEART + '"/></svg>';
+  }
+
+  function flyHeart(x, y, size, color, dx, dy, dur) {
+    var el = document.createElement("div");
+    el.className = "fly";
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    el.innerHTML = heartSVG(size, color);
+    layer.appendChild(el);
+
+    var anim = el.animate([
+      { transform: "translate(-50%,-50%) scale(.25) rotate(0deg)", opacity: 0 },
+      { transform: "translate(calc(-50% + " + dx * 0.35 + "px), calc(-50% + " + dy * 0.35 + "px)) scale(1) rotate(" + (dx * 0.25) + "deg)", opacity: 1, offset: 0.22 },
+      { transform: "translate(calc(-50% + " + dx + "px), calc(-50% + " + dy + "px)) scale(.85) rotate(" + dx * 0.5 + "deg)", opacity: 0 }
+    ], { duration: dur, easing: "cubic-bezier(.22,.7,.3,1)" });
+
+    anim.onfinish = function () { el.remove(); };
+  }
+
+  function burst(x, y, amount, spread) {
+    if (reduced) return;
+    spread = spread || 150;
+    for (var i = 0; i < amount; i++) {
+      if (layer.childElementCount > 110) break;
+      var dx = (Math.random() - 0.5) * spread * 1.7;
+      var dy = -50 - Math.random() * spread;
+      flyHeart(
+        x + (Math.random() - 0.5) * 16,
+        y + (Math.random() - 0.5) * 16,
+        9 + Math.random() * 22,
+        COLORS[(Math.random() * COLORS.length) | 0],
+        dx, dy,
+        1200 + Math.random() * 1000
+      );
+    }
+  }
+
+  function burstFrom(el, amount, spread) {
+    var r = el.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + r.height / 2, amount, spread);
+  }
+
+  function vibrate(ms) {
+    if (navigator.vibrate) { try { navigator.vibrate(ms); } catch (e) {} }
+  }
+
+  /* ---------------- 气泡 ---------------- */
+  var bubble = document.getElementById("bubble");
+  var bubbleTimer = null;
+
+  function say(text) {
+    bubble.textContent = text;
+    bubble.classList.remove("show");
+    void bubble.offsetWidth;
+    bubble.classList.add("show");
+    clearTimeout(bubbleTimer);
+    bubbleTimer = setTimeout(function () { bubble.classList.remove("show"); }, 4200);
+  }
+
+  /* ---------------- 互动值 ---------------- */
+  var points = 0;
+  var unlocked = false;
+  var meterFill = document.getElementById("meterFill");
+  var pctEl = document.getElementById("pct");
+  var meterTip = document.getElementById("meterTip");
+  var secret = document.getElementById("secret");
+  var toastEl = document.getElementById("toast");
+  var toastTimer = null;
+
+  function toast(text, ms) {
+    toastEl.textContent = text;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, ms || 2600);
+  }
+
+  function gainAt(x, y, n) {
+    if (reduced) return;
+    var el = document.createElement("div");
+    el.className = "gain";
+    el.textContent = "+" + n;
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    document.body.appendChild(el);
+    var a = el.animate([
+      { transform: "translate(-50%,-50%) scale(.9)", opacity: 1 },
+      { transform: "translate(-50%,-140%) scale(1.1)", opacity: 0 }
+    ], { duration: 850, easing: "cubic-bezier(.2,.7,.3,1)" });
+    a.onfinish = function () { el.remove(); };
+  }
+
+  function addPoints(n, x, y) {
+    points += n;
+    var shown = Math.min(points, 100);
+    meterFill.style.width = shown + "%";
+    pctEl.textContent = shown + "%";
+    if (x != null && y != null) gainAt(x, y, n);
+
+    if (shown >= 60 && shown < 100) meterTip.textContent = "快满了，再玩一会儿。";
+    if (shown >= 100 && !unlocked) {
+      unlocked = true;
+      meterTip.textContent = "满了。下面有句话，是给你的。";
+      secret.classList.add("in");
+      toast("互动值满啦，往下看 ↓", 3600);
+      setTimeout(function () {
+        secret.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 700);
+      for (var i = 0; i < 10; i++) {
+        (function (k) {
+          setTimeout(function () {
+            burst(window.innerWidth * (0.15 + Math.random() * 0.7), window.innerHeight * (0.3 + Math.random() * 0.4), 5, 200);
+          }, k * 130);
+        })(i);
+      }
+    }
+  }
+
+  /* ---------------- 摸摸头 ---------------- */
+  var bearLines = ["痒。", "再摸一下，就一下。", "我头发要乱了。", "……你手好软。", "别摸了，我会当真的。", "这算是你主动的哦。"];
+  var bunnyLines = ["唔……", "只准摸头。", "好啦好啦，给你摸。", "再摸我要收费了。", "嗯……舒服。", "你摸我，我也要摸回来。"];
+  var petCount = 0;
+  var lastPetLine = "";
+
+  function pet(char, lines) {
+    var line = lastPetLine;
+    while (line === lastPetLine) line = lines[(Math.random() * lines.length) | 0];
+    lastPetLine = line;
+
+    char.classList.remove("boop");
+    void char.offsetWidth;
+    char.classList.add("boop");
+    setTimeout(function () { char.classList.remove("boop"); }, 450);
+
+    say(line);
+    burstFrom(char, 4, 70);
+    vibrate(8);
+    petCount++;
+    addPoints(3);
+
+    if (petCount === 6) {
+      say("摸够了没？该我摸你了。");
+      burstFrom(document.getElementById("duo"), 16, 220);
+    }
+  }
+
+  ["bear", "bunny"].forEach(function (id) {
+    var el = document.getElementById(id);
+    var lines = id === "bear" ? bearLines : bunnyLines;
+    el.addEventListener("pointerdown", function (e) { e.stopPropagation(); pet(el, lines); });
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pet(el, lines); }
+    });
+  });
+
+  /* ---------------- 台词 ---------------- */
+  var pokeLines = [
+    "在呢在呢，一直都在。",
+    "戳一下，想你 +1。",
+    "别戳了，再戳我就真的跑去找你了。",
+    "今天有没有好好吃饭？",
+    "你笑起来最好看，真的，我没骗你。",
+    "我正在偷偷想你——被你发现了。",
+    "要不要抱一下？我数三下，一、二……",
+    "这条是专门写给你的，别人点不出来。",
+    "我有点笨，不会讲漂亮话，但想你这件事我很擅长。",
+    "你再戳，我就要开始报菜名了。"
+  ];
+  var pokeIndex = -1;
+
+  document.getElementById("poke").addEventListener("click", function (e) {
+    var next = pokeIndex;
+    while (next === pokeIndex) next = (Math.random() * pokeLines.length) | 0;
+    pokeIndex = next;
+    say(pokeLines[next]);
+    burstFrom(e.currentTarget, 9, 150);
+    var r = e.currentTarget.getBoundingClientRect();
+    addPoints(3, r.left + r.width / 2, r.top);
+  });
+
+  /* ---------------- 抱抱 ---------------- */
+  var duo = document.getElementById("duo");
+  document.getElementById("hug").addEventListener("click", function (e) {
+    var btn = e.currentTarget;
+    duo.classList.add("hugged");
+    say("抱到了。这次不许跑。");
+    burstFrom(duo, 26, 230);
+    vibrate(20);
+    var r = btn.getBoundingClientRect();
+    addPoints(12, r.left + r.width / 2, r.top);
+    clearTimeout(btn._hugTimer);
+    btn._hugTimer = setTimeout(function () { duo.classList.remove("hugged"); }, 2800);
+  });
+
+  /* ---------------- 计数器 ---------------- */
+  var countEl = document.getElementById("count");
+  var inlineEl = document.getElementById("countInline");
+  var count = 0;
+
+  function tick() {
+    count++;
+    countEl.textContent = count;
+    inlineEl.textContent = count;
+    countEl.classList.add("pop");
+    setTimeout(function () { countEl.classList.remove("pop"); }, 260);
+    setTimeout(tick, 2400 + Math.random() * 3200);
+  }
+  setTimeout(tick, 1400);
+
+  /* ---------------- 打开次数 ---------------- */
+  var visits = 1;
+  try {
+    visits = (parseInt(localStorage.getItem("for-her-visits") || "0", 10) || 0) + 1;
+    localStorage.setItem("for-her-visits", String(visits));
+  } catch (err) {}
+
+  document.getElementById("visitLine").textContent =
+    visits === 1
+      ? "第一次打开它呀，那我得表现好一点。"
+      : "这是你第 " + visits + " 次打开它了，我很开心。";
+
+  /* ================= 游戏：接住想你 ================= */
+  var stage = document.getElementById("stage");
+  var overlay = document.getElementById("gameOverlay");
+  var scoreEl = document.getElementById("score");
+  var timerBar = document.getElementById("timerBar");
+  var resultEl = document.getElementById("gameResult");
+
+  var playing = false;
+  var score = 0;
+  var falling = [];
+  var rafId = 0;
+  var lastT = 0;
+  var gameEnd = 0;
+  var spawnTimer = 0;
+  var GAME_MS = 20000;
+
+  function spawnHeart() {
+    var size = 34 + Math.random() * 18;
+    var el = document.createElement("div");
+    el.className = "falling";
+    el.style.left = (8 + Math.random() * 84) + "%";
+    el.style.top = "0px";
+    el.innerHTML = heartSVG(size, COLORS[(Math.random() * COLORS.length) | 0]);
+    stage.appendChild(el);
+
+    var obj = {
+      el: el,
+      y: -60,
+      v: 105 + Math.random() * 90,
+      size: size,
+      dead: false
+    };
+    el.style.transform = "translate(-50%, " + obj.y + "px)";
+
+    el.addEventListener("pointerdown", function (ev) {
+      ev.stopPropagation();
+      if (!playing || obj.dead) return;
+      obj.dead = true;
+      var r = el.getBoundingClientRect();
+      burst(r.left + r.width / 2, r.top + r.height / 2, 4, 90);
+      el.remove();
+      score++;
+      scoreEl.textContent = score;
+      vibrate(6);
+      var idx = falling.indexOf(obj);
+      if (idx > -1) falling.splice(idx, 1);
+      addPoints(4);
+    });
+
+    falling.push(obj);
+  }
+
+  function loop(t) {
+    if (!playing) return;
+    var dt = Math.min(60, t - lastT) / 1000;
+    lastT = t;
+    var remain = gameEnd - t;
+
+    timerBar.style.width = Math.max(0, (remain / GAME_MS) * 100) + "%";
+
+    spawnTimer -= dt;
+    if (spawnTimer <= 0 && remain > 900) {
+      spawnHeart();
+      spawnTimer = 0.42 + Math.random() * 0.38;
+    }
+
+    var h = stage.clientHeight;
+    for (var i = falling.length - 1; i >= 0; i--) {
+      var o = falling[i];
+      o.y += o.v * dt;
+      if (o.y > h + 30) {
+        o.el.remove();
+        falling.splice(i, 1);
+        continue;
+      }
+      o.el.style.transform = "translate(-50%, " + o.y + "px)";
+    }
+
+    if (remain <= 0) { endGame(); return; }
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function startGame() {
+    if (playing) return;
+    playing = true;
+    score = 0;
+    scoreEl.textContent = "0";
+    resultEl.textContent = "";
+    overlay.classList.add("hide");
+    falling.forEach(function (o) { o.el.remove(); });
+    falling = [];
+    spawnTimer = 0;
+    lastT = performance.now();
+    gameEnd = lastT + GAME_MS;
+    timerBar.style.width = "100%";
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(function (t) { lastT = t; loop(t); });
+  }
+
+  function endGame() {
+    playing = false;
+    cancelAnimationFrame(rafId);
+    falling.forEach(function (o) { o.el.remove(); });
+    falling = [];
+    timerBar.style.width = "0%";
+
+    var msg;
+    if (score >= 18) msg = "接住了 " + score + " 颗。这么多，够我开心一整天了。";
+    else if (score >= 10) msg = "接住了 " + score + " 颗。剩下的我偷偷塞你口袋里了。";
+    else if (score >= 4) msg = "接住了 " + score + " 颗。没事，掉在地上的我捡起来再想你一次。";
+    else msg = "只接住 " + score + " 颗呀……那我把心放低一点，你再试一次。";
+
+    resultEl.textContent = msg;
+    overlay.innerHTML =
+      '<p class="big-score">' + score + ' <span style="font-size:16px">颗</span></p>' +
+      '<p>' + (score >= 10 ? "厉害，比我预想的接得准。" : "没关系，心还有很多颗。") + "</p>" +
+      '<button class="btn btn-primary" id="againBtn" type="button">再玩一次</button>';
+    overlay.classList.remove("hide");
+    document.getElementById("againBtn").addEventListener("click", startGame);
+  }
+
+  document.getElementById("startGame").addEventListener("click", startGame);
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting && playing) endGame();
+      });
+    }, { threshold: 0.1 }).observe(stage);
+  }
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden && playing) endGame();
+  });
+
+  /* ================= 想你签 ================= */
+  var fortunes = [
+    ["上上签", "今晚会梦到我，而且梦很长。"],
+    ["上上签", "你想起我的时候，我正好也在想你。"],
+    ["中签", "适合被人抱着，什么都不做。"],
+    ["上上签", "明天会有人给你带好吃的。"],
+    ["中签", "今天可以理直气壮地撒娇。"],
+    ["上上签", "你笑一下，有人能开心一整天。"],
+    ["上上签", "你担心的那件事，会好起来的。"],
+    ["中签", "适合赖床，适合被哄。"],
+    ["上上签", "会有人偷偷把你放在第一位。"],
+    ["中签", "今天发的消息，会被人反复看。"],
+    ["上上签", "你在想的那个人，也在想你。"],
+    ["上上签", "以后每一个无聊的下午，都有人陪你浪费。"]
+  ];
+
+  var fc = document.getElementById("fortuneCard");
+  var fcLabel = document.getElementById("fcLabel");
+  var fcText = document.getElementById("fcText");
+  var drawn = false;
+
+  function drawFortune() {
+    var f = fortunes[(Math.random() * fortunes.length) | 0];
+    fcLabel.textContent = f[0];
+    fcText.textContent = f[1];
+    fc.classList.add("flipped");
+    if (!drawn) {
+      drawn = true;
+      var r = fc.getBoundingClientRect();
+      addPoints(8, r.left + r.width / 2, r.top + 20);
+    }
+    burstFrom(fc, 5, 100);
+    vibrate(10);
+  }
+
+  function resetFortune() {
+    fc.classList.remove("flipped");
+    setTimeout(drawFortune, 420);
+  }
+
+  fc.addEventListener("click", function () {
+    if (fc.classList.contains("flipped")) resetFortune();
+    else drawFortune();
+  });
+  fc.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); drawFortune(); }
+  });
+  document.getElementById("drawBtn").addEventListener("click", function (e) {
+    e.stopPropagation();
+    if (fc.classList.contains("flipped")) resetFortune();
+    else drawFortune();
+  });
+
+  /* ================= 会跑的按钮 ================= */
+  var dodgeBtn = document.getElementById("dodgeBtn");
+  var dodgeWrap = document.getElementById("dodgeWrap");
+  var dodgeTip = document.getElementById("dodgeTip");
+  var dodges = 0;
+
+  function dodgeMove() {
+    if (dodges >= 4) return;
+    dodges++;
+    var w = dodgeWrap.clientWidth;
+    var h = dodgeWrap.clientHeight;
+    var bw = dodgeBtn.offsetWidth;
+    var bh = dodgeBtn.offsetHeight;
+    var maxX = Math.max(0, w - bw - 16);
+    var maxY = Math.max(0, h - bh - 34);
+
+    var x = 8 + Math.random() * maxX;
+    var y = 8 + Math.random() * maxY;
+    dodgeBtn.style.left = x + "px";
+    dodgeBtn.style.top = y + "px";
+    dodgeBtn.style.transform = "translate(0, 0)";
+
+    if (dodges === 1) dodgeTip.textContent = "（它躲开了）";
+    if (dodges === 2) dodgeTip.textContent = "（它说它有点紧张）";
+    if (dodges === 3) dodgeTip.textContent = "（再点一次它就认输）";
+
+    if (dodges >= 4) {
+      dodgeTip.textContent = "（它认输了，并且有点开心）";
+      setTimeout(function () {
+        dodgeBtn.style.left = "50%";
+        dodgeBtn.style.top = "50%";
+        dodgeBtn.style.transform = "translate(-50%, -50%)";
+        dodgeBtn.classList.add("settled");
+        dodgeBtn.textContent = "好啦，不跑了，陪你。";
+        var r = dodgeBtn.getBoundingClientRect();
+        addPoints(16, r.left + r.width / 2, r.top);
+        burstFrom(dodgeBtn, 14, 160);
+        say("其实我本来也没想跑。");
+      }, 280);
+    }
+  }
+
+  dodgeBtn.addEventListener("pointerdown", function (e) {
+    e.stopPropagation();
+    if (dodges < 4) dodgeMove();
+    else {
+      burstFrom(dodgeBtn, 6, 90);
+      say("都说了不跑了，我说话算话。");
+    }
+  });
+
+  /* ================= 承诺 ================= */
+  var promiseBtn = document.getElementById("promise");
+  var reply = document.getElementById("reply");
+  var promised = false;
+
+  promiseBtn.addEventListener("click", function (e) {
+    if (promised) return;
+    promised = true;
+    promiseBtn.textContent = "那说好了 ♥";
+    promiseBtn.disabled = true;
+    reply.classList.add("in");
+    vibrate([10, 40, 10]);
+
+    var r = promiseBtn.getBoundingClientRect();
+    addPoints(26, r.left + r.width / 2, r.top);
+
+    if (!reduced) {
+      for (var i = 0; i < 12; i++) {
+        (function (n) {
+          setTimeout(function () {
+            burst(window.innerWidth * (0.12 + Math.random() * 0.76), window.innerHeight * (0.25 + Math.random() * 0.5), 6, 220);
+          }, n * 110);
+        })(i);
+      }
+    }
+  });
+
+  /* ---------------- 点哪儿都冒心 ---------------- */
+  document.addEventListener("pointerdown", function (e) {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    if (e.target.closest && e.target.closest(".game-stage, .fortune-card, .dodge-wrap, .char, .devui")) return;
+    burst(e.clientX, e.clientY, 3, 110);
+  }, { passive: true });
+
+  /* ---------------- 彩蛋 ---------------- */
+  var stamp = document.getElementById("stamp");
+  var stampClicks = 0;
+  stamp.addEventListener("click", function () {
+    stampClicks++;
+    if (stampClicks === 5) {
+      say("被你发现了：这一页，我改了十七遍才敢发给你。");
+      burstFrom(stamp, 18, 180);
+      addPoints(10);
+    } else if (stampClicks > 5) {
+      stampClicks = 0;
+    }
+  });
+
+  /* ---------------- 滚动出现 ---------------- */
+  var items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduced) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry, i) {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = (i % 5) * 70 + "ms";
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: "0px 0px -6% 0px" });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* ---------------- 开场 ---------------- */
+  window.setTimeout(function () {
+    if (reduced) return;
+    burst(window.innerWidth / 2, window.innerHeight * 0.42, 14, 260);
+  }, 700);
+
+  window.addEventListener("load", function () {
+    if (window.innerWidth < 700) {
+      setTimeout(function () { toast("可以摸摸上面两只，也可以往下玩 ↓", 3200); }, 2200);
+    }
+  });
+})();
+</script>
+
+<script>
+/* 只在 ?dev=1 时出现的留言按钮：给这一页提修改意见用 */
+(function () {
+  "use strict";
+  if (!/[?&]dev=1/.test(location.search)) return;
+  var ui = document.getElementById("devui");
+  if (!ui) return;
+  var panel = document.getElementById("devPanel");
+  var fab = document.getElementById("devFab");
+  var text = document.getElementById("devText");
+  var send = document.getElementById("devSend");
+  var closeBtn = document.getElementById("devClose");
+  var hint = document.getElementById("devHint");
+
+  ui.hidden = false;
+  function toggle(open) {
+    panel.hidden = !open;
+    if (open) setTimeout(function () { text.focus(); }, 40);
+  }
+  fab.addEventListener("click", function () { toggle(panel.hidden); });
+  closeBtn.addEventListener("click", function () { toggle(false); });
+  fab.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+  panel.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+
+  send.addEventListener("click", function () {
+    var body = text.value.trim();
+    if (!body) { hint.textContent = "先写点什么呀。"; return; }
+    send.disabled = true;
+    send.textContent = "发送中…";
+    hint.textContent = "";
+    fetch("/__feedback", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ text: body })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j.ok) throw new Error("bad");
+        text.value = "";
+        hint.textContent = "收到啦，我改完这一页会自己刷新。";
+        send.textContent = "已发送";
+        setTimeout(function () { send.disabled = false; send.textContent = "发送"; }, 2200);
+      })
+      .catch(function () {
+        hint.textContent = "没发出去，可能网络抖了一下，再试一次？";
+        send.disabled = false;
+        send.textContent = "发送";
+      });
+  });
+})();
+</script>
+
+<!-- ===== 口令门脚本 ===== -->
+<script>
+(function () {
+  var HASH = "7e961a3f9010aad7c1f7c6509c7040c596933353171f6b884d88926702308887";
+  var KEY = "for-her-pass";
+  var gate = document.getElementById("gate");
+  if (!gate) return;
+  var input = document.getElementById("gate-input");
+  var btn = document.getElementById("gate-btn");
+  var msg = document.getElementById("gate-msg");
+  var card = gate.querySelector(".gate-card");
+
+  function openGate() {
+    gate.classList.add("hide");
+    document.documentElement.classList.remove("locked");
+    setTimeout(function () { if (gate.parentNode) gate.parentNode.removeChild(gate); }, 600);
+  }
+  try {
+    if (window.localStorage && localStorage.getItem(KEY) === HASH) { openGate(); return; }
+  } catch (e) {}
+
+  function hex(buf) {
+    return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+      return ("0" + b.toString(16)).slice(-2);
+    }).join("");
+  }
+  function sha(s) {
+    if (!(window.crypto && crypto.subtle)) return Promise.resolve(null);
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)).then(hex);
+  }
+  function fail(text) {
+    msg.textContent = text;
+    msg.className = "gate-msg";
+    card.classList.add("shake");
+    setTimeout(function () { card.classList.remove("shake"); }, 420);
+    input.value = "";
+    input.focus();
+  }
+  function check() {
+    var v = (input.value || "").trim();
+    if (!v) return;
+    sha(v).then(function (h) {
+      if (h === null) { msg.textContent = "当前打开方式不支持校验，请用 https 访问"; return; }
+      if (h === HASH) {
+        msg.textContent = "对了，进来吧";
+        msg.className = "gate-msg ok";
+        try { localStorage.setItem(KEY, HASH); } catch (e) {}
+        setTimeout(openGate, 260);
+      } else {
+        fail("不对哦，再想想");
+      }
+    });
+  }
+  btn.addEventListener("click", check);
+  input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  setTimeout(function () { input.focus(); }, 350);
+})();
+</script>
+<!-- ===== /口令门脚本 ===== -->
+
+</body>
+</html>
